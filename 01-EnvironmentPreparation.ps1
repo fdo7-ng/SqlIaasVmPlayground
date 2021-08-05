@@ -13,7 +13,7 @@ if(!$rg) {
 # Create a vnet and a DC
 New-AzResourceGroupDeployment -Name "vnet" `
     -ResourceGroupName $rgName `
-    -TemplateUri "https://raw.githubusercontent.com/OmegaMadLab/LabTemplates/master/vnet.json" `
+    -TemplateUri "https://raw.githubusercontent.com/fdo7-ng/LabTemplates/master/vnet.json" `
     -vnetName $vnetName `
     -addressPrefix $addressPrefix `
     -subnetName $subnetName `
@@ -22,7 +22,7 @@ New-AzResourceGroupDeployment -Name "vnet" `
 $dcDeployment = New-AzResourceGroupDeployment -Name "DC" `
                     -ResourceGroupName $rgName `
                     -location $location `
-                    -TemplateUri "https://raw.githubusercontent.com/OmegaMadLab/LabTemplates/master/addc.json" `
+                    -TemplateUri "https://raw.githubusercontent.com/fdo7-ng/LabTemplates/master/addc.json" `
                     -envPrefix "MK" `
                     -vmName "AD" `
                     -genericVmSize "Standard_F2s_v2" `
@@ -36,7 +36,7 @@ $vnet = Get-AzVirtualNetwork -Name $vnetName -ResourceGroupName $rgName
 $vnet.DhcpOptions.DnsServers = $dcDeployment.Outputs.dcPrivateIp.Value
 $vnet | Set-AzVirtualNetwork
 
-Restart-AzVm -Name "Demo-DC" -resourceGroupName $rgName 
+Restart-AzVm -Name "MK-AD" -resourceGroupName $rgName 
 
 # Create an ILB for clusters
 foreach($ilbName in $s2dIlbName, $pfsIlbName, $agIlbName) {

@@ -1,9 +1,9 @@
-. .\00-CommonVariables.ps1
+. .\00-CommonVariables-MK.ps1
 
 # Deploy two cluster nodes
 New-AzResourceGroupDeployment -Name "AVG-Node01" `
     -ResourceGroupName $rgName `
-    -TemplateUri "https://raw.githubusercontent.com/OmegaMadLab/OptimizedSqlVm-v2/master/azuredeploy.json" `
+    -TemplateUri "https://raw.githubusercontent.com/fd7-ng/OptimizedSqlVm-v2/master/azuredeploy.json" `
     -TemplateParameterFile ".\AlwaysOnAG\azuredeploy.parameters.avg.cl01.json" `
     -AsJob
 
@@ -11,7 +11,7 @@ Start-Sleep -Seconds 30
 
 New-AzResourceGroupDeployment -Name "AVG-Node02" `
     -ResourceGroupName $rgName `
-    -TemplateUri "https://raw.githubusercontent.com/OmegaMadLab/OptimizedSqlVm-v2/master/azuredeploy.json" `
+    -TemplateUri "https://raw.githubusercontent.com/fd7-ng/OptimizedSqlVm-v2/master/azuredeploy.json" `
     -TemplateParameterFile ".\AlwaysOnAG\azuredeploy.parameters.avg.cl02.json" `
     -AsJob
 
